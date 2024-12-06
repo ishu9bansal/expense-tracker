@@ -1,6 +1,7 @@
 import React from 'react';
 import ExpenseList from '../components/ExpenseList';
 import { useNavigate } from 'react-router-dom';
+import ExpenseCards from '../components/ExpenseCards';
 
 const ExpenseListPage = ({ setEditIndex, expenses, dispatchExpenseAction }) => {
     const navigate = useNavigate();
@@ -19,8 +20,8 @@ const ExpenseListPage = ({ setEditIndex, expenses, dispatchExpenseAction }) => {
 
     return (
         <>
-            <h1>Expense List</h1>
-            <ExpenseList expenses={expenses || []} onDeleteExpense={handleDeleteExpense} onEditExpense={handleEditExpense} />
+            <h1>Expense Cards</h1>
+            <ExpenseCards expenses={expenses || []} onDeleteExpense={handleDeleteExpense} onEditExpense={handleEditExpense} />
         </>
     );
 };
