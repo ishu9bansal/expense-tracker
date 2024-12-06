@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 const FilterDropdown = ({
   allOptions,
-  selectedOptions = [],
+  selectedOptions,
   onSelectOption,
   onDeselectOption,
   resetSelection,
@@ -37,7 +37,7 @@ const FilterDropdown = ({
                 <input
                   type="checkbox"
                   id={`option-${index}`}
-                  checked={selectedOptions.includes(option)}
+                  checked={selectedOptions?.includes(option)}
                   readOnly
                 />
                 <label htmlFor={`option-${index}`}>{option}</label>

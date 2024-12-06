@@ -55,7 +55,7 @@ const ExpenseListPage = ({ setEditIndex, expenses, dispatchExpenseAction }) => {
             <button onClick={toggleView}>Toggle View</button>
             <FilterDropdown
                 allOptions={allCategories}
-                selectedOptions={selectedCategories || []}
+                selectedOptions={selectedCategories}
                 onSelectOption={onSelectCategory}
                 onDeselectOption={onDeselectCategory}
                 resetSelection={() => setSelectedCategories(null)}
