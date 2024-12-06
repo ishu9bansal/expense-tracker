@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ExpenseList from '../components/ExpenseList';
 import { useNavigate } from 'react-router-dom';
 import ExpenseCards from '../components/ExpenseCards';
 
 const ExpenseListPage = ({ setEditIndex, expenses, dispatchExpenseAction }) => {
+    const [showList, setShowList] = useState(true);
     const navigate = useNavigate();
 
     const handleDeleteExpense = (ind) => {
@@ -18,10 +19,18 @@ const ExpenseListPage = ({ setEditIndex, expenses, dispatchExpenseAction }) => {
         navigate('/');
     };
 
+    const toggleView = () => {
+        setShowList(val => !val);
+    }
+
+    const heading = showList ? "Expense List" : "Expense Cards";
+    const ExpenseView = showList ? ExpenseList : ExpenseCards;
+
     return (
         <>
-            <h1>Expense Cards</h1>
-            <ExpenseCards expenses={expenses || []} onDeleteExpense={handleDeleteExpense} onEditExpense={handleEditExpense} />
+            <button onClick={toggleView}>Toggle View</button>
+            <h1>{heading}</h1>
+            <ExpenseView expenses={expenses || []} onDeleteExpense={handleDeleteExpense} onEditExpense={handleEditExpense} />
         </>
     );
 };
