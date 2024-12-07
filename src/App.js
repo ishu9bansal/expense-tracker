@@ -29,7 +29,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <nav class="tab">
+        <nav className="tab">
           <NavLink to="">Add Expense</NavLink>
           <NavLink to="expenses">View Expenses</NavLink>
         </nav>

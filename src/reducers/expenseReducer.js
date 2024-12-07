@@ -1,21 +1,39 @@
+const generateNewId = (state) => {
+    let newId = -1;
+    state.forEach(ele => {
+        newId = Math.max(newId, ele.id);
+    });
+    return newId + 1;
+}
+
 export default function expenseReducer(state, action) {
     switch (action.type) {
         case "EDIT": {
             if (isInvalidState(state, action))  return state;
-            const { ind, expense } = action.payload;
+            const { id, expense } = action.payload;
             const updatedState = [...state];
-            updatedState[ind] = expense;
+            const ind = updatedState.findIndex(ele => ele.id === id);
+            updatedState[ind] = {
+                ...expense,
+                id,
+            };
             return updatedState;
         }
         case "ADD": {
             if (isInvalidState(state, action))  return state;
             const { expense } = action.payload;
-            return [...state, expense];
+            return [
+                ...state,
+                {
+                    ...expense,
+                    id: generateNewId(state),
+                }
+            ];
         }
         case "DELETE": {
             if (isInvalidState(state, action))  return state;
-            const { ind } = action.payload;
-            return state.filter((_, index) => ind !== index);
+            const { id } = action.payload;
+            return state.filter((ele) => ele.id !== id);
         }
         case "FILL": {
             if (state !== null) {
@@ -34,6 +52,10 @@ export default function expenseReducer(state, action) {
 const isInvalidState = (state, action) => {
     if (state === null) {
         console.warn(action.type, " is unsupported. Data not loaded from backend yet!");
+        return true;
+    }
+    if (state.reduce((isInvalid, ele) => (isInvalid || ele.id === undefined), false)) {
+        console.error("State invalid, some of the expenses don't have an 'id'");
         return true;
     }
     return false;

@@ -1,4 +1,4 @@
-const EXPENSES_DATA_KEY = 'expenses_key';
+const EXPENSES_DATA_KEY = 'expenses';
 const DELAY = 2000;
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
