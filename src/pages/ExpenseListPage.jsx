@@ -9,6 +9,10 @@ const ExpenseListPage = ({ setEditIndex, expenses, dispatchExpenseAction }) => {
     const [selectedCategories, setSelectedCategories] = useState(null);
     const navigate = useNavigate();
 
+    if (expenses === null) {
+        return <div>Loading...</div>
+    }
+
     const allCategories = [];
     expenses?.forEach((expense) => {
         if (!allCategories.includes(expense.category)) {

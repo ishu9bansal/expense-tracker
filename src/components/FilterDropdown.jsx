@@ -13,7 +13,7 @@ const FilterDropdown = ({
   const toggleDropdown = () => setIsOpen(!isOpen);
 
   const handleOptionClick = (option) => {
-    if (selectedOptions.includes(option)) {
+    if (selectedOptions?.includes(option)) {
       onDeselectOption(option);
     } else {
       onSelectOption(option);
