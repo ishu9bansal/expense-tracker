@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import ExpenseCards from '../components/ExpenseCards';
 import FilterDropdown from '../components/FilterDropdown';
 
-const ExpenseListPage = ({ setEditIndex, expenses, dispatchExpenseAction }) => {
+const ExpenseListPage = ({ setEditId, expenses, dispatchExpenseAction }) => {
     const [showList, setShowList] = useState(true);
     const [selectedCategories, setSelectedCategories] = useState(null);
     const navigate = useNavigate();
@@ -40,8 +40,8 @@ const ExpenseListPage = ({ setEditIndex, expenses, dispatchExpenseAction }) => {
         });
     };
 
-    const handleEditExpense = (ind) => {
-        setEditIndex(ind);
+    const handleEditExpense = (id) => {
+        setEditId(id);
         navigate('/');
     };
 

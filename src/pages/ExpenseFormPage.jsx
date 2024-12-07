@@ -2,7 +2,7 @@ import React from 'react';
 import ExpenseForm from '../components/ExpenseForm';
 import { useNavigate } from 'react-router-dom';
 
-const ExpenseFormPage = ({ editIndex, setEditIndex, expenses, dispatchExpenseAction }) => {
+const ExpenseFormPage = ({ editId, setEditId, expenses, dispatchExpenseAction }) => {
     const navigate = useNavigate();
 
     const handleSaveExpense = (expense, ind) => {
@@ -15,14 +15,14 @@ const ExpenseFormPage = ({ editIndex, setEditIndex, expenses, dispatchExpenseAct
             action.payload = { expense };
         }
         dispatchExpenseAction(action);
-        setEditIndex(-1);
+        setEditId(-1);
         navigate('/expenses')
     };
 
     return (
         <>
             <h1>Daily Expense Tracker</h1>
-            <ExpenseForm onSaveExpense={handleSaveExpense} editIndex={editIndex} key={editIndex} expenses={expenses || []} />
+            <ExpenseForm onSaveExpense={handleSaveExpense} editId={editId} key={editId} expenses={expenses || []} />
         </>
     );
 };

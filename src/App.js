@@ -8,7 +8,7 @@ import expenseReducer from './reducers/expenseReducer';
 
 
 function App() {
-  const [editIndex, setEditIndex] = useState(-1);
+  const [editId, setEditId] = useState(-1);
   const [expenses, dispatchExpenseAction] = useReducer(expenseReducer, null);
   useEffect(() => {
     getExpensesFromBackend().then(expensesVal => {
@@ -34,8 +34,8 @@ function App() {
           <NavLink to="expenses">View Expenses</NavLink>
         </nav>
         <Routes>
-          <Route path='' element={<ExpenseFormPage editIndex={editIndex} setEditIndex={setEditIndex} expenses={expenses} dispatchExpenseAction={dispatchExpenseAction} />}></Route>
-          <Route path='expenses' element={<ExpenseListPage setEditIndex={setEditIndex} expenses={expenses} dispatchExpenseAction={dispatchExpenseAction} />}></Route>
+          <Route path='' element={<ExpenseFormPage editId={editId} setEditId={setEditId} expenses={expenses} dispatchExpenseAction={dispatchExpenseAction} />}></Route>
+          <Route path='expenses' element={<ExpenseListPage setEditId={setEditId} expenses={expenses} dispatchExpenseAction={dispatchExpenseAction} />}></Route>
         </Routes>
       </div>
     </BrowserRouter>

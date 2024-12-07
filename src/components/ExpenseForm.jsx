@@ -13,8 +13,8 @@ const emptyForm = () => ({
   tags: '',
 });
 
-function formValuesFromLocalStorage(ind, expenses) {
-  const expense = expenses[ind];
+function formValuesFromLocalStorage(id, expenses) {
+  const expense = expenses.find(expense => expense.id === id);
   const formValues = {
     ...expense,
     newCategory: '',  // TODO: fix later
@@ -23,8 +23,8 @@ function formValuesFromLocalStorage(ind, expenses) {
   return formValues;
 }
 
-const ExpenseForm = ({ onSaveExpense, editIndex, expenses }) => {
-  const prefilledForm = editIndex > -1 ? formValuesFromLocalStorage(editIndex, expenses) : emptyForm();
+const ExpenseForm = ({ onSaveExpense, editId, expenses }) => {
+  const prefilledForm = editId > -1 ? formValuesFromLocalStorage(editId, expenses) : emptyForm();
   const [formValues, setFormValues] = useState(prefilledForm);
 
   const handleSubmit = (e) => {
@@ -36,7 +36,7 @@ const ExpenseForm = ({ onSaveExpense, editIndex, expenses }) => {
       newCategory: undefined,
       tags: formValues.tags?.split(','),
     };
-    onSaveExpense(expense, editIndex);
+    onSaveExpense(expense, editId);
     setFormValues(emptyForm());
   };
 
@@ -50,7 +50,7 @@ const ExpenseForm = ({ onSaveExpense, editIndex, expenses }) => {
   const [beneficiary, setBeneficiary] = [formValues.beneficiary, (val) => setFormValues((state) => ({...state, beneficiary: val}))]
   const [tags, setTags] = [formValues.tags, (val) => setFormValues((state) => ({...state, tags: val}))]
 
-  const submitButtonText = editIndex > -1 ? "Edit Expense" : "Add Expense";
+  const submitButtonText = editId > -1 ? "Edit Expense" : "Add Expense";
 
   return (
     <form onSubmit={handleSubmit}>
