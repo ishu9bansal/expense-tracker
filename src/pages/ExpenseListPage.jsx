@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useReducer, useState } from 'react';
 import ExpenseList from '../components/ExpenseList';
 import { useNavigate } from 'react-router-dom';
 import ExpenseCards from '../components/ExpenseCards';
 import FilterDropdown from '../components/FilterDropdown';
+import filterReducer from "../reducers/filterReducer"
 
 const ExpenseListPage = ({ setEditId, expenses, dispatchExpenseAction }) => {
     const [showList, setShowList] = useState(true);
-    const [selectedCategories, setSelectedCategories] = useState(null);
+    const [selectedCategories, dispatchFilterAction] = useReducer(filterReducer, null);
     const navigate = useNavigate();
 
     if (expenses === null) {
@@ -21,16 +22,17 @@ const ExpenseListPage = ({ setEditId, expenses, dispatchExpenseAction }) => {
     });
 
     const onSelectCategory = (category) => {
-        const selection = selectedCategories || [];
-        setSelectedCategories([
-            ...selection,
-            category
-        ]);
+        dispatchFilterAction({
+            type: "ADD_FILTER",
+            payload: { category },
+        });
     }
 
     const onDeselectCategory = (category) => {
-        const updatedSelection = selectedCategories.filter(val => val !== category);
-        setSelectedCategories(updatedSelection);
+        dispatchFilterAction({
+            type: "REMOVE_FILTER",
+            payload: { category },
+        });
     }
 
     const handleDeleteExpense = (ind) => {
@@ -62,7 +64,9 @@ const ExpenseListPage = ({ setEditId, expenses, dispatchExpenseAction }) => {
                 selectedOptions={selectedCategories}
                 onSelectOption={onSelectCategory}
                 onDeselectOption={onDeselectCategory}
-                resetSelection={() => setSelectedCategories(null)}
+                resetSelection={() => dispatchFilterAction({
+                    type: "RESET_FILTER"
+                })}
             />
             <h1>{heading}</h1>
             <ExpenseView expenses={filteredExpenses || []} onDeleteExpense={handleDeleteExpense} onEditExpense={handleEditExpense} />
