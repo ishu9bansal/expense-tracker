@@ -26,12 +26,12 @@ const Card = ({ expense, deleteHandler, editHandler }) => {
 const ExpenseCards = ({ expenses, onDeleteExpense, onEditExpense }) => {
   return (
     <div className='expense-grid'>
-        {expenses.map((expense, index) => (
+        {expenses.map((expense) => (
             <Card
-                key={index}
+                key={expense.id}
                 expense={expense}
-                deleteHandler={() => onDeleteExpense(index)}
-                editHandler={() => onEditExpense(index)}
+                deleteHandler={() => onDeleteExpense(expense.id)}
+                editHandler={() => onEditExpense(expense.id)}
             >
             </Card>
         ))}
