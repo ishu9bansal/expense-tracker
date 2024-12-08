@@ -84,3 +84,16 @@ export default expenseSlice.reducer;
 
 export const selectAllExpenses = (state) => state.expense.list;
 export const selectExpenseById = (id) => (state) => state.expense.list.find(ele => ele.id === id);
+export const selectAllCategories = (state) => {
+    const allCategories = [];
+    state.expense.list.forEach((expense) => {
+        if (!allCategories.includes(expense.category)) {
+            allCategories.push(expense.category);
+        }
+    });
+    return allCategories;
+};
+export const selectFilteredExpenses = (state) => {
+    const selectedCategories = state.filter.categories !== null ? state.filter.categories : selectAllCategories(state);
+    return state.expense.list.filter(expense => selectedCategories.includes(expense.category));
+};

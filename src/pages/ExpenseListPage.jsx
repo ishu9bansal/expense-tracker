@@ -5,25 +5,15 @@ import ExpenseCards from '../components/ExpenseCards';
 import FilterDropdown from '../components/FilterDropdown';
 import { useDispatch, useSelector } from 'react-redux';
 import { addCategoryFilter, removeCategoryFilter, resetCategoryFilter, selectCategoryFilter } from '../slices/filterSlice';
-import { deleteExpense, selectAllExpenses } from '../slices/expenseSlice';
+import { deleteExpense, selectAllCategories, selectFilteredExpenses } from '../slices/expenseSlice';
 
 const ExpenseListPage = ({ setEditId }) => {
     const [showList, setShowList] = useState(true);
     const selectedCategories = useSelector(selectCategoryFilter);
-    const expenses = useSelector(selectAllExpenses);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    if (expenses === null) {
-        return <div>Loading...</div>
-    }
-
-    const allCategories = [];
-    expenses?.forEach((expense) => {
-        if (!allCategories.includes(expense.category)) {
-            allCategories.push(expense.category);
-        }
-    });
+    const allCategories = useSelector(selectAllCategories);
 
     const onSelectCategory = (category) => {
         dispatch(addCategoryFilter(category));
@@ -49,7 +39,7 @@ const ExpenseListPage = ({ setEditId }) => {
     const heading = showList ? "Expense List" : "Expense Cards";
     const ExpenseView = showList ? ExpenseList : ExpenseCards;
 
-    const filteredExpenses = selectedCategories !== null ? expenses?.filter(expense => selectedCategories.includes(expense.category)) : expenses;
+    const filteredExpenses = useSelector(selectFilteredExpenses);
 
     return (
         <>
