@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import filterReducer from "./reducers/filterReducer";
-import expenseReducer from "./reducers/expenseReducer";
+import filterReducer from "./slices/filterSlice";
+import expenseReducer from "./slices/expenseSlice";
 
 export default configureStore({
     reducer: {

@@ -9,12 +9,13 @@ const filterSlice = createSlice({
                 state = [];
             }
             state.push(action.payload);
+            return state;
         },
         removeFilter: (state, action) => {
-            state = state?.filter(ele => ele !== action.payload);
+            return state?.filter(ele => ele !== action.payload);
         },
         resetFilter: (state) => {
-            state = null;
+            return null;
         }
     },
 });

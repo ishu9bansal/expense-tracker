@@ -20,17 +20,18 @@ const expenseSlice = createSlice({
             state.push(expense);
         },
         deleteExpense: (state, action) => {
-            state = state.filter(ele => ele.id === action.payload.id);
+            return state.filter(ele => ele.id === action.payload.id);
         },
         editExpense: (state, action) => {
             const updatedExpense = {
                 ...action.payload.expense,
                 id: action.payload.id,
             };
-            state = state.map(ele => ele.id === action.payload.id ? updatedExpense : ele);
+            console.log("edit expense", updatedExpense);
+            return state.map(ele => ele.id === action.payload.id ? updatedExpense : ele);
         },
         fillExpenses: (state, action) => {
-            state = action.payload;
+            return action.payload;
         }
     },
 });

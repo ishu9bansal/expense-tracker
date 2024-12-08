@@ -26,7 +26,7 @@ function formValuesFromLocalStorage(expense) {
 
 const ExpenseForm = ({ onSaveExpense, editId }) => {
   const editExpense = useSelector(selectExpenseById(editId));
-  const prefilledFormCreator = editExpense ? () => formValuesFromLocalStorage(expense) : emptyForm;
+  const prefilledFormCreator = editExpense ? () => formValuesFromLocalStorage(editExpense) : emptyForm;
   const [formValues, setFormValues] = useState(prefilledFormCreator);
 
   const handleSubmit = (e) => {

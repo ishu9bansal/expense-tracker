@@ -37,7 +37,7 @@ const FilterDropdown = ({
                 <input
                   type="checkbox"
                   id={`option-${index}`}
-                  checked={selectedOptions?.includes(option)}
+                  checked={(selectedOptions || []).includes(option)}
                   readOnly
                 />
                 <label htmlFor={`option-${index}`}>{option}</label>
