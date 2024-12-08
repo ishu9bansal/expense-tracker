@@ -38,3 +38,6 @@ const expenseSlice = createSlice({
 export const { addExpense, editExpense, deleteExpense, fillExpenses } = expenseSlice.actions;
 
 export default expenseSlice.reducer;
+
+export const selectAllExpenses = (state) => state.expenses;
+export const selectExpenseById = (id) => (state) => state.expenses.find(ele => ele.id === id);

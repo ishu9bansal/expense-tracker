@@ -4,11 +4,16 @@ import { useNavigate } from 'react-router-dom';
 import ExpenseCards from '../components/ExpenseCards';
 import FilterDropdown from '../components/FilterDropdown';
 import filterReducer from "../reducers/filterReducer"
+import { useDispatch, useSelector } from 'react-redux';
+import { addFilter, removeFilter, resetFilter, selectFilter } from '../slices/filterSlice';
+import { deleteExpense, selectAllExpenses } from '../slices/expenseSlice';
 
-const ExpenseListPage = ({ setEditId, expenses, dispatchExpenseAction }) => {
+const ExpenseListPage = ({ setEditId }) => {
     const [showList, setShowList] = useState(true);
-    const [selectedCategories, dispatchFilterAction] = useReducer(filterReducer, null);
+    const selectedCategories = useSelector(selectFilter);
+    const expenses = useSelector(selectAllExpenses);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     if (expenses === null) {
         return <div>Loading...</div>
@@ -22,24 +27,15 @@ const ExpenseListPage = ({ setEditId, expenses, dispatchExpenseAction }) => {
     });
 
     const onSelectCategory = (category) => {
-        dispatchFilterAction({
-            type: "ADD_FILTER",
-            payload: { category },
-        });
+        dispatch(addFilter(category));
     }
 
     const onDeselectCategory = (category) => {
-        dispatchFilterAction({
-            type: "REMOVE_FILTER",
-            payload: { category },
-        });
+        dispatch(removeFilter(category));
     }
 
-    const handleDeleteExpense = (ind) => {
-        dispatchExpenseAction({
-            type: "DELETE",
-            payload: { ind },
-        });
+    const handleDeleteExpense = (id) => {
+        dispatch(deleteExpense(id));
     };
 
     const handleEditExpense = (id) => {
@@ -64,9 +60,7 @@ const ExpenseListPage = ({ setEditId, expenses, dispatchExpenseAction }) => {
                 selectedOptions={selectedCategories}
                 onSelectOption={onSelectCategory}
                 onDeselectOption={onDeselectCategory}
-                resetSelection={() => dispatchFilterAction({
-                    type: "RESET_FILTER"
-                })}
+                resetSelection={() => dispatch(resetFilter())}
             />
             <h1>{heading}</h1>
             <ExpenseView expenses={filteredExpenses || []} onDeleteExpense={handleDeleteExpense} onEditExpense={handleEditExpense} />
