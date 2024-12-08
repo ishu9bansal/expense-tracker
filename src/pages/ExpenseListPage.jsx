@@ -4,22 +4,20 @@ import { useNavigate } from 'react-router-dom';
 import ExpenseCards from '../components/ExpenseCards';
 import FilterDropdown from '../components/FilterDropdown';
 import filterReducer from "../reducers/filterReducer"
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteExpense, selectAllCategories, selectAllExpenses } from '../slices/expenseSlice';
 
-const ExpenseListPage = ({ setEditId, expenses, dispatchExpenseAction }) => {
+const ExpenseListPage = ({ setEditId }) => {
     const [showList, setShowList] = useState(true);
     const [selectedCategories, dispatchFilterAction] = useReducer(filterReducer, null);
     const navigate = useNavigate();
-
+    const expenses = useSelector(selectAllExpenses);
+    const dispatch = useDispatch();
+    const allCategories = useSelector(selectAllCategories);
     if (expenses === null) {
         return <div>Loading...</div>
     }
 
-    const allCategories = [];
-    expenses?.forEach((expense) => {
-        if (!allCategories.includes(expense.category)) {
-            allCategories.push(expense.category);
-        }
-    });
 
     const onSelectCategory = (category) => {
         dispatchFilterAction({
@@ -35,14 +33,13 @@ const ExpenseListPage = ({ setEditId, expenses, dispatchExpenseAction }) => {
         });
     }
 
-    const handleDeleteExpense = (ind) => {
-        dispatchExpenseAction({
-            type: "DELETE",
-            payload: { ind },
-        });
+    const handleDeleteExpense = (id) => {
+        dispatch(deleteExpense({ id }));
     };
 
     const handleEditExpense = (id) => {
+        console.log("id: ", id);
+        console.log("expenses: ", expenses);
         setEditId(id);
         navigate('/');
     };

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { DateInput, AmountInput, TitleInput, CategoryInput, PaymentModeInput, RecurringInput, BeneficiaryInput, TagsInput } from './Inputs';
+import { useSelector } from 'react-redux';
+import { selectAllExpenses } from '../slices/expenseSlice';
 
 const emptyForm = () => ({
   date: new Date().toISOString().split('T')[0],
@@ -23,7 +25,8 @@ function formValuesFromLocalStorage(id, expenses) {
   return formValues;
 }
 
-const ExpenseForm = ({ onSaveExpense, editId, expenses }) => {
+const ExpenseForm = ({ onSaveExpense, editId }) => {
+  const expenses = useSelector(selectAllExpenses);
   const prefilledForm = editId > -1 ? formValuesFromLocalStorage(editId, expenses) : emptyForm();
   const [formValues, setFormValues] = useState(prefilledForm);
 
