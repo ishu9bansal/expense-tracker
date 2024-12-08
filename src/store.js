@@ -5,6 +5,6 @@ import expenseReducer from "./slices/expenseSlice";
 export default configureStore({
     reducer: {
         filter: filterReducer,
-        expenses: expenseReducer
+        expense: expenseReducer
     },
 });

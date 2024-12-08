@@ -1,16 +1,15 @@
-import React, { useReducer, useState } from 'react';
+import React, { useState } from 'react';
 import ExpenseList from '../components/ExpenseList';
 import { useNavigate } from 'react-router-dom';
 import ExpenseCards from '../components/ExpenseCards';
 import FilterDropdown from '../components/FilterDropdown';
-import filterReducer from "../reducers/filterReducer"
 import { useDispatch, useSelector } from 'react-redux';
-import { addFilter, removeFilter, resetFilter, selectFilter } from '../slices/filterSlice';
+import { addCategoryFilter, removeCategoryFilter, resetCategoryFilter, selectCategoryFilter } from '../slices/filterSlice';
 import { deleteExpense, selectAllExpenses } from '../slices/expenseSlice';
 
 const ExpenseListPage = ({ setEditId }) => {
     const [showList, setShowList] = useState(true);
-    const selectedCategories = useSelector(selectFilter);
+    const selectedCategories = useSelector(selectCategoryFilter);
     const expenses = useSelector(selectAllExpenses);
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -27,15 +26,15 @@ const ExpenseListPage = ({ setEditId }) => {
     });
 
     const onSelectCategory = (category) => {
-        dispatch(addFilter(category));
+        dispatch(addCategoryFilter(category));
     }
 
     const onDeselectCategory = (category) => {
-        dispatch(removeFilter(category));
+        dispatch(removeCategoryFilter(category));
     }
 
     const handleDeleteExpense = (id) => {
-        dispatch(deleteExpense(id));
+        dispatch(deleteExpense({ id }));
     };
 
     const handleEditExpense = (id) => {
@@ -60,7 +59,7 @@ const ExpenseListPage = ({ setEditId }) => {
                 selectedOptions={selectedCategories}
                 onSelectOption={onSelectCategory}
                 onDeselectOption={onDeselectCategory}
-                resetSelection={() => dispatch(resetFilter())}
+                resetSelection={() => dispatch(resetCategoryFilter())}
             />
             <h1>{heading}</h1>
             <ExpenseView expenses={filteredExpenses || []} onDeleteExpense={handleDeleteExpense} onEditExpense={handleEditExpense} />

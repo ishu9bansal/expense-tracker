@@ -2,26 +2,25 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const filterSlice = createSlice({
     name: 'filter',
-    initialState: null,
+    initialState: {
+        categories: null,
+    },
     reducers: {
-        addFilter: (state, action) => {
-            if (state === null) {
-                state = [];
-            }
-            state.push(action.payload);
-            return state;
+        addCategoryFilter: (state, action) => {
+            state.categories = state.categories || [];
+            state.categories.push(action.payload);
         },
-        removeFilter: (state, action) => {
-            return state?.filter(ele => ele !== action.payload);
+        removeCategoryFilter: (state, action) => {
+            state.categories = state.categories?.filter(ele => ele !== action.payload);
         },
-        resetFilter: (state) => {
-            return null;
+        resetCategoryFilter: (state) => {
+            state.categories = null;
         }
     },
 });
 
-export const { addFilter, removeFilter, resetFilter } = filterSlice.actions;
+export const { addCategoryFilter, removeCategoryFilter, resetCategoryFilter } = filterSlice.actions;
 
 export default filterSlice.reducer;
 
-export const selectFilter = (state) => state.filter;
+export const selectCategoryFilter = (state) => state.filter.categories;

@@ -10,28 +10,70 @@ const generateNewId = (state) => {
 
 const expenseSlice = createSlice({
     name: "expense",
-    initialState: [],
+    initialState: {
+        list: [
+            {
+                "date": "2024-12-08",
+                "amount": 350,
+                "title": "Burger",
+                "category": "Food",
+                "paymentMode": "Digital",
+                "recurring": false,
+                "beneficiary": "Friends",
+                "tags": [
+                    ""
+                ],
+                "id": 0
+            },
+            {
+                "date": "2024-12-08",
+                "amount": 450,
+                "title": "Pizza",
+                "category": "Food",
+                "paymentMode": "Digital",
+                "recurring": false,
+                "beneficiary": "Family",
+                "tags": [
+                    ""
+                ],
+                "id": 1
+            },
+            {
+                "date": "2024-12-08",
+                "amount": 2300,
+                "title": "Shoes",
+                "category": "Apparel",
+                "paymentMode": "Digital",
+                "recurring": false,
+                "beneficiary": "Self",
+                "tags": [
+                    ""
+                ],
+                "id": 2
+            },
+            
+        ]
+    },
     reducers: {
         addExpense: (state, action) => {
             const expense = {
                 ...action.payload.expense,
                 id: generateNewId(state),
             }
-            state.push(expense);
+            state.list.push(expense);
         },
         deleteExpense: (state, action) => {
-            return state.filter(ele => ele.id === action.payload.id);
+            state.list = state.list.filter(ele => ele.id !== action.payload.id);
         },
         editExpense: (state, action) => {
             const updatedExpense = {
                 ...action.payload.expense,
                 id: action.payload.id,
             };
-            console.log("edit expense", updatedExpense);
-            return state.map(ele => ele.id === action.payload.id ? updatedExpense : ele);
+            state.list = state.list.map(ele => ele.id === action.payload.id ? updatedExpense : ele);
         },
         fillExpenses: (state, action) => {
-            return action.payload;
+            state.list = action.payload;
         }
     },
 });
@@ -40,5 +82,5 @@ export const { addExpense, editExpense, deleteExpense, fillExpenses } = expenseS
 
 export default expenseSlice.reducer;
 
-export const selectAllExpenses = (state) => state.expenses;
-export const selectExpenseById = (id) => (state) => state.expenses.find(ele => ele.id === id);
+export const selectAllExpenses = (state) => state.expense.list;
+export const selectExpenseById = (id) => (state) => state.expense.list.find(ele => ele.id === id);
