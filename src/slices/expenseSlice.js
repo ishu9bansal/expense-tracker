@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { selectCategoryFilter } from "./filterSlice";
 
 const generateNewId = (state) => {
     let newId = -1;
@@ -94,6 +95,6 @@ export const selectAllCategories = (state) => {
     return allCategories;
 };
 export const selectFilteredExpenses = (state) => {
-    const selectedCategories = state.filter.categories !== null ? state.filter.categories : selectAllCategories(state);
+    const selectedCategories = selectCategoryFilter(state) || selectAllCategories(state);
     return state.expense.list.filter(expense => selectedCategories.includes(expense.category));
 };
