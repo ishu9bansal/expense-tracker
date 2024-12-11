@@ -57,5 +57,5 @@ export const selectAllCategories = (state) => {
             allCategories.push(expense.category);
         }
     });
-    return;
+    return allCategories;
 };

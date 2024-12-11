@@ -3,10 +3,14 @@ import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
 import ExpenseFormPage from './pages/ExpenseFormPage';
 import ExpenseListPage from './pages/ExpenseListPage';
-
+import { useSelector } from 'react-redux';
 
 function App() {
   const [editId, setEditId] = useState(-1);
+
+  const globalState = useSelector(state => state);
+  console.log("State updated: ");
+  console.log(globalState);
 
   return (
     <BrowserRouter>

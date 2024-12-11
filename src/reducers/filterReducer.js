@@ -1,4 +1,4 @@
-export default function filterReducer(state, action) {
+export default function filterReducer(state = null, action) {
     switch (action.type) {
         case "ADD_FILTER": {
             const { category } = action.payload;
@@ -18,3 +18,4 @@ export default function filterReducer(state, action) {
         }
     }
 }
+

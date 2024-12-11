@@ -9,10 +9,12 @@ import { deleteExpense, selectAllCategories, selectAllExpenses } from '../slices
 
 const ExpenseListPage = ({ setEditId }) => {
     const [showList, setShowList] = useState(true);
-    const [selectedCategories, dispatchFilterAction] = useReducer(filterReducer, null);
+    // const [selectedCategories, dispatchFilterAction] = useReducer(filterReducer, null);
+    const selectedCategories = useSelector(state => state.filter);
     const navigate = useNavigate();
     const expenses = useSelector(selectAllExpenses);
     const dispatch = useDispatch();
+    // const dispatchFilterAction = dispatch;
     const allCategories = useSelector(selectAllCategories);
     if (expenses === null) {
         return <div>Loading...</div>
@@ -20,14 +22,14 @@ const ExpenseListPage = ({ setEditId }) => {
 
 
     const onSelectCategory = (category) => {
-        dispatchFilterAction({
+        dispatch({
             type: "ADD_FILTER",
             payload: { category },
         });
     }
 
     const onDeselectCategory = (category) => {
-        dispatchFilterAction({
+        dispatch({
             type: "REMOVE_FILTER",
             payload: { category },
         });
@@ -61,7 +63,7 @@ const ExpenseListPage = ({ setEditId }) => {
                 selectedOptions={selectedCategories}
                 onSelectOption={onSelectCategory}
                 onDeselectOption={onDeselectCategory}
-                resetSelection={() => dispatchFilterAction({
+                resetSelection={() => dispatch({
                     type: "RESET_FILTER"
                 })}
             />
