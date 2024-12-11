@@ -36,7 +36,9 @@ const ExpenseListPage = ({ setEditId }) => {
     }
 
     const handleDeleteExpense = (id) => {
-        dispatch(deleteExpense({ id }));
+        const action = deleteExpense({ id });
+        console.log(action);
+        dispatch(action);
     };
 
     const handleEditExpense = (id) => {

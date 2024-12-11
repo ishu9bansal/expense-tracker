@@ -25,7 +25,137 @@ const expenseSlice = createSlice({
                     ""
                 ],
                 "id": 0
-            }
+            },
+            {
+                "date": "2024-12-08",
+                "amount": 350,
+                "title": "Burger",
+                "category": "Food",
+                "paymentMode": "Digital",
+                "recurring": false,
+                "beneficiary": "Self",
+                "tags": [
+                    ""
+                ],
+                "id": 1
+            },
+            {
+                "date": "2024-12-08",
+                "amount": 350,
+                "title": "Burger",
+                "category": "Food",
+                "paymentMode": "Digital",
+                "recurring": false,
+                "beneficiary": "Self",
+                "tags": [
+                    ""
+                ],
+                "id": 2
+            },
+            {
+                "date": "2024-12-08",
+                "amount": 350,
+                "title": "Burger",
+                "category": "Food",
+                "paymentMode": "Digital",
+                "recurring": false,
+                "beneficiary": "Self",
+                "tags": [
+                    ""
+                ],
+                "id": 3
+            },
+            {
+                "date": "2024-12-08",
+                "amount": 350,
+                "title": "Burger",
+                "category": "Food",
+                "paymentMode": "Digital",
+                "recurring": false,
+                "beneficiary": "Self",
+                "tags": [
+                    ""
+                ],
+                "id": 4
+            },
+            {
+                "date": "2024-12-08",
+                "amount": 350,
+                "title": "Burger",
+                "category": "Food",
+                "paymentMode": "Digital",
+                "recurring": false,
+                "beneficiary": "Self",
+                "tags": [
+                    ""
+                ],
+                "id": 5
+            },
+            {
+                "date": "2024-12-08",
+                "amount": 350,
+                "title": "Burger",
+                "category": "Food",
+                "paymentMode": "Digital",
+                "recurring": false,
+                "beneficiary": "Self",
+                "tags": [
+                    ""
+                ],
+                "id": 6
+            },
+            {
+                "date": "2024-12-08",
+                "amount": 350,
+                "title": "Burger",
+                "category": "Food",
+                "paymentMode": "Digital",
+                "recurring": false,
+                "beneficiary": "Self",
+                "tags": [
+                    ""
+                ],
+                "id": 7
+            },
+            {
+                "date": "2024-12-08",
+                "amount": 350,
+                "title": "Burger",
+                "category": "Food",
+                "paymentMode": "Digital",
+                "recurring": false,
+                "beneficiary": "Self",
+                "tags": [
+                    ""
+                ],
+                "id": 8
+            },
+            {
+                "date": "2024-12-08",
+                "amount": 350,
+                "title": "Burger",
+                "category": "Food",
+                "paymentMode": "Digital",
+                "recurring": false,
+                "beneficiary": "Self",
+                "tags": [
+                    ""
+                ],
+                "id": 9
+            },
+            {
+                "date": "2024-12-08",
+                "amount": 350,
+                "title": "Burger",
+                "category": "Food",
+                "paymentMode": "Digital",
+                "recurring": false,
+                "beneficiary": "Self",
+                "tags": [
+                    ""
+                ],
+                "id": 10
+            },
         ],
     },
     reducers: {
