@@ -10,6 +10,7 @@ import { deleteExpense, selectAllCategories, selectFilteredExpenses } from '../s
 const ExpenseListPage = ({ setEditId }) => {
     const [showList, setShowList] = useState(true);
     const selectedCategories = useSelector(selectCategoryFilter);
+    const [reverse, setReverse] = useState(true);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -40,6 +41,11 @@ const ExpenseListPage = ({ setEditId }) => {
     const ExpenseView = showList ? ExpenseList : ExpenseCards;
 
     const filteredExpenses = useSelector(selectFilteredExpenses);
+    
+    const handleReverse = () => {
+        setReverse(val => !val);
+    };
+    const listOrderingButtonName = reverse ? "Oldest First" : "Latest First";
 
     return (
         <>
@@ -51,8 +57,9 @@ const ExpenseListPage = ({ setEditId }) => {
                 onDeselectOption={onDeselectCategory}
                 resetSelection={() => dispatch(resetCategoryFilter())}
             />
+            <button onClick={handleReverse} >{listOrderingButtonName}</button>
             <h1>{heading}</h1>
-            <ExpenseView expenses={filteredExpenses || []} onDeleteExpense={handleDeleteExpense} onEditExpense={handleEditExpense} />
+            <ExpenseView isReverse={reverse} expenses={filteredExpenses || []} onDeleteExpense={handleDeleteExpense} onEditExpense={handleEditExpense} />
         </>
     );
 };

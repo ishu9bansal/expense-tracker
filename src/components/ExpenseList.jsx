@@ -1,9 +1,10 @@
 import React from 'react';
 
-const ExpenseList = ({ expenses, onDeleteExpense, onEditExpense }) => {
+const ExpenseList = ({ isReverse, expenses, onDeleteExpense, onEditExpense }) => {
+  const viewExpenses = isReverse ? [...expenses].reverse() : expenses;
   return (
     <ul>
-        {expenses.map((expense) => (
+        {viewExpenses.map((expense) => (
             <li key={expense.id}>
                 {expense.date} - ${expense.amount} - {expense.title} - {expense.category} - {expense.paymentMode} - {expense.recurring ? 'Recurring' : 'One-time'} - {expense.beneficiary} - Tags: {expense.tags?.join(', ')}
                 <button onClick={() => onDeleteExpense(expense.id)}>Delete</button>
