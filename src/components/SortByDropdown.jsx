@@ -1,33 +1,30 @@
 import React, { useState } from 'react';
-// import "./FilterDropdown.css"
 
-const FilterDropdown = ({
+const SortByDropdown = ({
   allOptions,
-  selectedOptions,
+  selectedOption,
   onSelectOption,
-  onDeselectOption,
-  resetSelection,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => setIsOpen(!isOpen);
 
   const handleOptionClick = (option) => {
-    if (selectedOptions?.includes(option)) {
-      onDeselectOption(option);
+    if (selectedOption === option) {
+      onSelectOption("");
     } else {
       onSelectOption(option);
     }
   };
 
   const handleReset = () => {
-    resetSelection();
+    onSelectOption("");
   };
 
   return (
     <div className="filter-dropdown">
       <button className="dropdown-button" onClick={toggleDropdown}>
-        {selectedOptions !== null ? `Selected Categories: ${selectedOptions.length}` : 'Category Filter'}
+        {selectedOption ? `Sorted by: ${selectedOption}` : 'Select Sort by'}
       </button>
       {isOpen && (
         <div className="dropdown-content">
@@ -35,9 +32,9 @@ const FilterDropdown = ({
             {allOptions.map((option, index) => (
               <li key={index} className="dropdown-item" onClick={() => handleOptionClick(option)}>
                 <input
-                  type="checkbox"
+                  type="radio"
                   id={`option-${index}`}
-                  checked={(selectedOptions || []).includes(option)}
+                  checked={option === selectedOption}
                   readOnly
                 />
                 <label htmlFor={`option-${index}`}>{option}</label>
@@ -53,4 +50,4 @@ const FilterDropdown = ({
   );
 };
 
-export default FilterDropdown;
+export default SortByDropdown;

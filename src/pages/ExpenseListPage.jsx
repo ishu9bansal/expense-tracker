@@ -6,11 +6,19 @@ import FilterDropdown from '../components/FilterDropdown';
 import { useDispatch, useSelector } from 'react-redux';
 import { addCategoryFilter, removeCategoryFilter, resetCategoryFilter, selectCategoryFilter } from '../slices/filterSlice';
 import { deleteExpense, selectAllCategories, selectFilteredExpenses } from '../slices/expenseSlice';
+import SortByDropdown from '../components/SortByDropdown';
+
+const sortOptions = [
+    "Name",
+    "Date",
+    "Amount",
+];
 
 const ExpenseListPage = ({ setEditId }) => {
     const [showList, setShowList] = useState(true);
     const selectedCategories = useSelector(selectCategoryFilter);
     const [reverse, setReverse] = useState(true);
+    const [selectedSort, setSelectedSort] = useState("");
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -19,6 +27,8 @@ const ExpenseListPage = ({ setEditId }) => {
     const onSelectCategory = (category) => {
         dispatch(addCategoryFilter(category));
     }
+
+    const onSelectSort = (option) => setSelectedSort(option);
 
     const onDeselectCategory = (category) => {
         dispatch(removeCategoryFilter(category));
@@ -45,7 +55,7 @@ const ExpenseListPage = ({ setEditId }) => {
     const handleReverse = () => {
         setReverse(val => !val);
     };
-    const listOrderingButtonName = reverse ? "Oldest First" : "Latest First";
+    const listOrderingButtonName = reverse ? "Descending" : "Ascending";
 
     return (
         <>
@@ -58,10 +68,11 @@ const ExpenseListPage = ({ setEditId }) => {
                     onDeselectOption={onDeselectCategory}
                     resetSelection={() => dispatch(resetCategoryFilter())}
                 />
+                <SortByDropdown allOptions={sortOptions} selectedOption={selectedSort} onSelectOption={onSelectSort} />
                 <button onClick={handleReverse} >{listOrderingButtonName}</button>
             </section>
             <h1>{heading}</h1>
-            <ExpenseView isReverse={reverse} expenses={filteredExpenses || []} onDeleteExpense={handleDeleteExpense} onEditExpense={handleEditExpense} />
+            <ExpenseView selectedSort={selectedSort} isReverse={reverse} expenses={filteredExpenses || []} onDeleteExpense={handleDeleteExpense} onEditExpense={handleEditExpense} />
         </>
     );
 };

@@ -1,7 +1,24 @@
 import React from 'react';
 
-const ExpenseList = ({ isReverse, expenses, onDeleteExpense, onEditExpense }) => {
-  const viewExpenses = isReverse ? [...expenses].reverse() : expenses;
+const sortPredicate = (selectedSort) => {
+  switch(selectedSort){
+      case "Name":
+          return (a, b) => a.title.localeCompare(b.title);
+      case "Date":
+          return (a, b) => a.date.localeCompare(b.date);
+      case "Amount":
+          return (a, b) => a.amount - b.amount;
+      default:
+          return (a, b) => a.id - b.id;
+  }
+};
+
+const ExpenseList = ({ selectedSort, isReverse, expenses, onDeleteExpense, onEditExpense }) => {
+  const viewExpenses = [...expenses];
+  viewExpenses.sort(sortPredicate(selectedSort));
+  if (isReverse) {
+    viewExpenses.reverse();
+  }
   return (
     <ul>
         {viewExpenses.map((expense) => (
