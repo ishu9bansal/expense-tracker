@@ -49,15 +49,17 @@ const ExpenseListPage = ({ setEditId }) => {
 
     return (
         <>
-            <button onClick={toggleView}>Toggle View</button>
-            <FilterDropdown
-                allOptions={allCategories}
-                selectedOptions={selectedCategories}
-                onSelectOption={onSelectCategory}
-                onDeselectOption={onDeselectCategory}
-                resetSelection={() => dispatch(resetCategoryFilter())}
-            />
-            <button onClick={handleReverse} >{listOrderingButtonName}</button>
+            <section className='actionbar'>
+                <button onClick={toggleView}>Toggle View</button>
+                <FilterDropdown
+                    allOptions={allCategories}
+                    selectedOptions={selectedCategories}
+                    onSelectOption={onSelectCategory}
+                    onDeselectOption={onDeselectCategory}
+                    resetSelection={() => dispatch(resetCategoryFilter())}
+                />
+                <button onClick={handleReverse} >{listOrderingButtonName}</button>
+            </section>
             <h1>{heading}</h1>
             <ExpenseView isReverse={reverse} expenses={filteredExpenses || []} onDeleteExpense={handleDeleteExpense} onEditExpense={handleEditExpense} />
         </>

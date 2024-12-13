@@ -64,3 +64,15 @@
 .tab button.active {
   background-color: #ccc;
 }
+
+.actionbar {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.actionbar button {
+  margin-left: 20px;
+  margin-right: 20px;
+}

@@ -13,6 +13,7 @@ function App() {
       <div className="App">
         <nav className="tab">
           <NavLink to="">Add Expense</NavLink>
+          <span>{"  |  "}</span>
           <NavLink to="expenses">View Expenses</NavLink>
         </nav>
         <Routes>
